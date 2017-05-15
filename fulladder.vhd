@@ -1,16 +1,16 @@
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
 package adder_pkg is
 
-    -- LFSR Feedback for 2**n
     function fulladder (input1, input2,carry :std_logic) return std_logic_vector;
     function halfadder (input1, input2 :std_logic) return std_logic_vector;
 
 end;
 
-package body lfsr_pkg is
+package body adder_pkg is
 
     function halfadder (input1, input2 :std_logic) return std_logic_vector is
         variable res :std_logic_vector(1 downto 0);
@@ -39,10 +39,10 @@ package body lfsr_pkg is
         variable tmp_res : std_logic_vector(1 downto 0);
         variable tmp_res1 : std_logic_vector(1 downto 0);
     begin
-        tmp_res <= halfadder(input1,input2);
-        tmp_res1 <= halfadder(tmp_res(0),carry);
-        res(1) := tmp_res(1) or tmp_res1(0);
-        res(0) := tmp_res1(1);
+        tmp_res := halfadder(input1,input2);
+        tmp_res1 := halfadder(tmp_res(0),carry);
+        res(1) := tmp_res(1) or tmp_res1(1);
+        res(0) := tmp_res1(0);
 
         return res;
 
